@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsmath,amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Def}
+\newtheorem{example}{Example}
+\newtheorem{problem}{Problem}
+\usepackage{mathtools} % Bonus
+\DeclarePairedDelimiter\norm\lVert\rVert
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\title{MATH 1102 Winter 2020}
+
+\begin{document}
+\maketitle
+Recall: A $n \times n$, $A\vec{v} = \lambda \vec{v}$, $\vec{v} \neq \vec{0}$
+$det(A-\lambda I) = 0$ and $E_{\lambda} = ker(A-\lambda I)$ 
+
+\begin{definition}
+  Suppose $A\in M_{nn}(F)$ has eigenvalue $\lambda_{1}$, 
+  and $p_{A} = (\lambda - \lambda_{1})^{\alpha_A(\lambda_{1})} \text{ then }q_{A}(\lambda_{1})$
+  is the algebraic multiplicity of $\lambda_{1}.$ The geometric multiplicity
+  $\gamma_{A}(\lambda_{1})$ of $\lambda_{1}$ is equal to $dim(E_{\lambda_{1}}).$
+  If A is clear from context, we write $\alpha_{A}(\lambda_{1}) = \alpha(\lambda_{1})$,
+  $\gamma_{A}(\lambda_{1}) = \gamma(\lambda_{1})$  
+\end{definition}
+
+\begin{theorem}
+Suppose $A \in M_{nn}(F)$ has eigenvalue $\lambda_{1}$. Then, 
+$1 \leq \gamma(\lambda_{1}) \leq \alpha(\lambda_{1}) \leq n$
+\end{theorem}
+
+\begin{proof}
+  $(\lambda - \lambda_{1})^{\alpha(\lambda)}$ is a factor of $p_{A}(\lambda)$,
+  a degree n polynomial, Thus $\alpha_{A}(\lambda_{1}) \leq n$. Since $\lambda_{1}$ is an eigenvalue, there is some $\vec{v} \neq \vec{0}$ in 
+  $E_{\lambda_{1}}.$ Thus $E_{\lambda_{1}} \neq \{\vec{0}\}$, and so $\alpha(\lambda_{1}) =  dim(E_{\lambda_{1}}) \geq 1.$
+  
+  Let $g = \alpha(\lambda_{1}) = dim(E_{\lambda_{1}})$, and $\vec{v_{1}} \ldots \vec{v_{g}}$ 
+  be a basis of $E_{\lambda_{1}}$. By the linear independence to basis theorem, we can find $\vec{u_{1}}, \ldots, \vec{u_{n-g}} \in F^{n}$
+  so that $\vec{v_{1}}, \ldots, \vec{v_{g}}, \vec{u_{1}}, \ldots, \vec{u_{n-g}}$ is a basis of $F^{n}$.
+
+   Let $P = [\vec{v_{1}} \ldots \vec{v_{g}} \text{ } \vec{u_{1}} \ldots \vec{u_{n-g}}]$. Since the
+   columns of P are a basis of $F^{n}$, P is nonsingular and hence invertible.
+   Now that $\vec{e_{1} \ldots \vec{e_{n}}} = I = P^{-1}P = P^{-1}[\vec{v_{1}} \ldots \vec{v_{g}} \text{ } \vec{u_{1}} \ldots \vec{u_{n-g}}]$,
+   and so for $1 \leq i \leq g$, $P^{-1}\vec{v_{i}} = \vec{e_{i}}$. \\ 
+
+  Let $B = P^{-1}AP$. Since A and B are similar matrices, $p_{A}(\lambda) = p_{B}(\lambda)$.
+  Since $B=P^{-1}AP = P^{-1}A[\vec{v_{1}} \ldots \vec{v_{g}} \text{ } \vec{u_{1}} \ldots \vec{u_{n-g}}]$,
+  for $1 \leq i \leq g$, the $i^{th}$ column of B is equal to 
+  \begin{align*}
+    P^{-1}A\vec{v_{i}} &= P^{-1}(\lambda_{1}\vec{v_{i}}) && \text{(since $\vec{v_{i}} \in E_{\lambda_{1}})$}\\ 
+    &= \lambda_{1}(P^{-1}\vec{v_{i}}) \\ 
+    &= \lambda_{1}\vec{e_{i}}
+  \end{align*}
+  Thus, 
+  \begin{align*}
+    P_{A}(\lambda) &= P_{B}(\lambda) \\ 
+    &= det(B-\lambda I)  \\ 
+    &= det 
+      \begin{pmatrix}
+      \lambda_{1} - \lambda & 0 & \cdots & 0 & c_{11} &\cdots & \cdots & \cdots & \cdots & c_{1(n-g)} \\
+      0 & \lambda_{1} - \lambda & \cdots & 0 & \vdots &\ddots &  & & & \vdots\\
+      \vdots & \vdots  & \ddots & \vdots & \vdots &  & \ddots & & & \vdots \\
+      \vdots & \vdots & & \lambda_{1} - \lambda & \vdots &  &  & \ddots & & \vdots\\
+      \vdots & \vdots & & \vdots & \vdots &  &  & & \ddots & \vdots  \\
+      0 & 0 & \cdots & 0 & c_{n1} & \cdots & \cdots & \cdots & \cdots & c_{n(n-g)}
+      \end{pmatrix}\\
+    &= (\lambda_{1} - \lambda)^{g} det(M) \hspace{2.4cm} \text{(by expanding along the first column, repeated g times)} \\
+    &=(-1)^{g}(\lambda - \lambda_{1})^{g} det(M) 
+  \end{align*}
+  M is the $(n-g)\times (n-g)$ matrix made up of the lower right corner of the matrix
+  above. Since det(M) is a polynomial in $\lambda$, we have shown that 
+  $(\lambda - \lambda_{1})^g$ is a factor of $p_(A)(\lambda)$.
+
+  Since $\alpha(\lambda_{1})$ is the greatest power of $(\lambda - \lambda_{1})$
+  that divides $p_(A)(\lambda)$. Note that $\vec{u} \in \ker(B)$ which means
+  that $B\vec{u} = \vec{0}$. Thus, we have
+  \begin{align*}
+    \gamma(\lambda_{1}) = g \leq \alpha(\lambda_{1})
+  \end{align*}
+\end{proof}
+
+
+\end{document}

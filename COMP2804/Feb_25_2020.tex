@@ -1,0 +1,98 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb,amsmath,amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+\newtheorem{problem}{Problem}
+
+\usepackage{mathtools} % Bonus
+\DeclarePairedDelimiter\norm\lVert\rVert
+
+\title{Feb 25 Lecture}
+\author{COMP2804 Winter 2020}
+
+\begin{document}
+
+\section{Section 3.2}
+Recall: Uniform sample space S.
+\begin{align*}
+   Pr(w) = \frac{1}{|S|}  \text{for each w $\in$ S} \\
+   Pr(A) = \sum_{w \in A}^{} Pr(w) = \frac{|A|}{|S|} 
+\end{align*}
+\section{Birthday Paradox}
+  - There are d = 365 days in a year. \\
+  - There are n people with birthdays $b_{1}, b_{2}, ..., b_{n} \in {1,..,365} $ \\
+  - Assumption: Uniform sample spaces \\
+  - $|S| = d^{n}$ (for this class $365^{120}$) \\
+  - A = "at least two people have the same birthday". \\
+  - A = "$b_{i} = b_{j}$ for some $i \neq j$." \\
+  - $A^\complement = $"everyone has a different birthday" \\ 
+  - $A^\complement = b_{i} \neq b_{j}$ for any $i \neq j$." \\
+(insert drawing)\\
+  - $|A^\complement| = $ \# of one-to-one functions P(people) to D(birthdays) \\ 
+  - $d\cdot(d-1)\cdot(d-2) \ldots (d-n) = \frac{d!}{(d-n)!}$
+\begin{align*}
+    Pr(A^\complement) &= \frac{A^\complement}{|S|} = \frac{d!}{(d-n)!} \setminus d^{n}\\
+    Pr(A^\complement) &= 1 - \frac{d!}{(d-n)!\cdot d^{n}} 
+\end{align*}
+\begin{example} 
+  if $d=365$, $n=22$, $Pr(A) = 0.476$ \\ 
+  if $d=365$, $n=23$, $Pr(A) = 0.507$ 
+\end{example}
+
+\begin{theorem}
+  If we throw n balls uniformly at random into d buckets(bins) then the 
+  probability that at least one bin contains at least 2 balls is $$1 - \frac{d!}{(d-n)!d^{n}}$$
+\end{theorem}
+
+\section{The Big Box Problem}
+- I (secretly) pick two integers $x < y$, $x,y \in \{0,\ldots, 100\}$\\ 
+- I (secretly) do one of these two things:\\
+\begin{enumerate}
+  \item put \$x in the left box and \$y in the right box; OR
+  \item put \$y in the left box and \$x in the right box; 
+\end{enumerate}
+- I choose both both boxes\\
+A. You open one of the boxes and look inside \\ 
+B. You decide to keep it or pick the other box \\ 
+- You win if you pick the box with \$y.
+
+- Pick a random z.
+- $z \in \{\frac{1}{2}, 1\cdot\frac{1}{2}, 2\cdot\frac{1}{2},\ldots,99\cdot\frac{1}{2}\}$
+- Pick $z \in \{0.5, \ldots, 99.5\}$ \\ 
+- Open the box picked at random and we see some money \\ 
+- If $\$a < z$, then take the other box. \\
+- If $\$a > z$, then keep the box. \\ 
+- $|S| = \{0.5, \ldots, 99.5\} \times \{\$x, \$y\}$ $|S| = 200$\\
+- $Pr(Win)$, lets say W = "I win the game" \\ 
+- $W_{x} =$ "I open the box containing \$x and $z > x$". \\
+- $W_{y} =$ "I open the box containing \$y and $z < y$". \\ 
+- $Pr(W) = Pr(W_{x}) + Pr(W_{y})$ \\
+We start by finding $Pr(w_{x})$ \\
+- $w_{x} = \{(z, \$x): z \in \{x+0.5, x+1.5, \ldots, 99.5\}\}$ $|W_{x}| = 100 - x$\\
+We start by finding $Pr(w_{y})$ \\
+- $w_{y} = \{(z, \$y): z \in \{0.5, 1.5, \ldots, y-0.5\}\}$ $|W_{y}| = y$
+
+\begin{align*}
+  Pr(W) &= Pr(W_{x}) + Pr(W_{y})\\ 
+  &= \frac{W_{x}}{|S|} + \frac{W_{y}}{|S|}\\
+  &= \frac{100-x+y}{200}\\ 
+  &= \frac{100+y-x}{200} \geq \frac{101}{200}
+\end{align*}
+
+
+\begin{align*}
+  q &= 1 - p\\
+  q &= \frac{d!}{(d-n)!d^{n}} = \frac{d(d-1)(d-2)\ldots (d-(n-1))}{d^n}\\
+  q &= \frac{d}{d} \cdot \frac{d-1}{d} \cdot \ldots \cdot \frac{d-(n-1)}{d}\\
+  q &= (1- \frac{1}{d}) \cdot (1 - \frac{2}{d})\cdot \ldots \cdot (1 -\frac{(n-1)}{d})\\
+    &\leq e^{0} \cdot e^{-1/d} \cdot e^{-2/d} \cdot e^{-3/d} \ldots e^{-(n-1)/d}\\
+    &= e^{0-(1/d)-(2/d)-\ldots - (n-1)/d} \\ 
+    &= e^{-n(n-1)/2d} = d
+\end{align*}
+
+
+\end{document}
